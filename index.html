@@ -40,6 +40,19 @@
         <input type="text" id="_16c_sfp_o" />
       </div>
     </section>
+    <section>
+      <h1>负数与无符号位的转换</h1>
+      <div>
+        <input type="text" id="_n_ub_i" value="-2000" />
+        <button id="_n_ub_btn">负数 to 无符号位</button>
+        <input type="text" id="_n_ub_o" />
+      </div>
+      <div>
+        <input type="text" id="_ub_n_i" value="4294965296" />
+        <button id="_ub_n_btn">无符号位 to 负数</button>
+        <input type="text" id="_ub_n_o" />
+      </div>
+    </section>
     <script>
       const $ = (select) => document.querySelector(select);
       function code2char(inputString, hook) {
@@ -67,6 +80,13 @@
           data_M_10 = data_M_10 + data_M[i] * Math.pow(2, -1 * (i + 1));
         }
         return Math.pow(2, data_E - 127) * (1 + data_M_10);
+      }
+
+      function negative2unsignedBit(num) {
+        return 2 ** 32 - Number(num);
+      }
+      function unsignedBit2negative(num) {
+        return -(2 ** 32 - Number(num));
       }
     </script>
     <script>
@@ -109,6 +129,20 @@
       const _16c_sfp_btn = $("#_16c_sfp_btn");
       _16c_sfp_btn.addEventListener("click", () => {
         _16c_sfp_o.value = hex2SingleFloatingPoint(_16c_sfp_i.value, 16);
+      });
+    </script>
+    <script>
+      const _n_ub_i = $("#_n_ub_i");
+      const _n_ub_o = $("#_n_ub_o");
+      const _n_ub_btn = $("#_n_ub_btn");
+      _n_ub_btn.addEventListener("click", () => {
+        _n_ub_o.value = negative2unsignedBit(_n_ub_i.value);
+      });
+      const _ub_n_i = $("#_ub_n_i");
+      const _ub_n_o = $("#_ub_n_o");
+      const _ub_n_btn = $("#_ub_n_btn");
+      _ub_n_btn.addEventListener("click", () => {
+        _ub_n_o.value = unsignedBit2negative(_ub_n_i.value);
       });
     </script>
   </body>
