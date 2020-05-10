@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字符串与code的相互转换</title>
+  </head>
+  <body>
+    <section>
+      <h1>char to code</h1>
+      <div>
+        <input type="text" id="s_10c_i" value="成都" />
+        <button id="s_10c_btn">字符串 to 10进制</button>
+        <input type="text" id="s_10c_o" />
+      </div>
+      <div>
+        <input type="text" id="s_16c_i" value="成都" />
+        <button id="s_16c_btn">字符串 to 16进制</button>
+        <input type="text" id="s_16c_o" />
+      </div>
+    </section>
+    <section>
+      <h1>code to char</h1>
+      <div>
+        <input type="text" id="_10c_s_i" value="25104 37117" />
+        <button id="_10c_s_btn">10进制 to 字符串</button>
+        <input type="text" id="_10c_s_o" />
+      </div>
+      <div>
+        <input type="text" id="_16c_s_i" value="6210 90fd" />
+        <button id="_16c_s_btn">16进制 to 字符串</button>
+        <input type="text" id="_16c_s_o" />
+      </div>
+    </section>
+    <script>
+      const $ = (select) => document.querySelector(select);
+      function code2char(inputString, hook) {
+        return inputString
+          .split(/\s+/)
+          .filter((it) => !!it)
+          .reduce((acc, it) => {
+            acc += String.fromCharCode(parseInt(it, hook));
+            return acc;
+          }, "");
+      }
+      function char2code(inputString, hook) {
+        return inputString.split("").reduce((acc, it) => {
+          acc += it.codePointAt(0).toString(hook) + " ";
+          return acc;
+        }, "");
+      }
+    </script>
+    <script>
+      // char to 10
+      const s_10c_i = $("#s_10c_i");
+      const s_10c_o = $("#s_10c_o");
+      const s_10c_btn = $("#s_10c_btn");
+      s_10c_btn.addEventListener("click", () => {
+        s_10c_o.value = char2code(s_10c_i.value, 10);
+      });
+
+      // char to 16
+      const s_16c_i = $("#s_16c_i");
+      const s_16c_o = $("#s_16c_o");
+      const s_16c_btn = $("#s_16c_btn");
+      s_16c_btn.addEventListener("click", () => {
+        s_16c_o.value = char2code(s_16c_i.value, 16);
+      });
+    </script>
+    <script>
+      // 10 to char
+      const _10c_s_i = $("#_10c_s_i");
+      const _10c_s_o = $("#_10c_s_o");
+      const _10c_s_btn = $("#_10c_s_btn");
+      _10c_s_btn.addEventListener("click", () => {
+        _10c_s_o.value = code2char(_10c_s_i.value, 10);
+      });
+
+      // 16 to char
+      const _16c_s_i = $("#_16c_s_i");
+      const _16c_s_o = $("#_16c_s_o");
+      const _16c_s_btn = $("#_16c_s_btn");
+      _16c_s_btn.addEventListener("click", () => {
+        _16c_s_o.value = code2char(_16c_s_i.value, 16);
+      });
+    </script>
+  </body>
+</html>
