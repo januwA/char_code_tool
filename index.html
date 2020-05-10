@@ -32,6 +32,14 @@
         <input type="text" id="_16c_s_o" />
       </div>
     </section>
+    <section>
+      <h1>16进制转单浮点</h1>
+      <div>
+        <input type="text" id="_16c_sfp_i" value="43290000" />
+        <button id="_16c_sfp_btn">16进制 to 单浮点</button>
+        <input type="text" id="_16c_sfp_o" />
+      </div>
+    </section>
     <script>
       const $ = (select) => document.querySelector(select);
       function code2char(inputString, hook) {
@@ -48,6 +56,17 @@
           acc += it.codePointAt(0).toString(hook) + " ";
           return acc;
         }, "");
+      }
+      function hex2SingleFloatingPoint(hex) {
+        // https://blog.csdn.net/qq_19286023/article/details/72651568
+        const data_bit = parseInt(hex, 16).toString(2); //16进制转2进制
+        const data_E = parseInt(data_bit.slice(0, 8), 2); //slice表示数组的截取，并转化为十进制数
+        const data_M = data_bit.slice(8, 64);
+        var data_M_10 = 0.0;
+        for (var i = 0; i < data_M.length; i++) {
+          data_M_10 = data_M_10 + data_M[i] * Math.pow(2, -1 * (i + 1));
+        }
+        return Math.pow(2, data_E - 127) * (1 + data_M_10);
       }
     </script>
     <script>
@@ -82,6 +101,14 @@
       const _16c_s_btn = $("#_16c_s_btn");
       _16c_s_btn.addEventListener("click", () => {
         _16c_s_o.value = code2char(_16c_s_i.value, 16);
+      });
+    </script>
+    <script>
+      const _16c_sfp_i = $("#_16c_sfp_i");
+      const _16c_sfp_o = $("#_16c_sfp_o");
+      const _16c_sfp_btn = $("#_16c_sfp_btn");
+      _16c_sfp_btn.addEventListener("click", () => {
+        _16c_sfp_o.value = hex2SingleFloatingPoint(_16c_sfp_i.value, 16);
       });
     </script>
   </body>
