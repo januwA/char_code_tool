@@ -5,7 +5,7 @@ import { BlockView } from "./widgets/block_view";
 function App() {
   return (
     <>
-      <BlockView title="字符串 to 10进制">
+      <BlockView title="char to code">
         <IOInput
           btnText="字符串 to 10进制"
           inputValue="成都"

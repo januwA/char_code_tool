@@ -46,7 +46,7 @@ export function hex2SingleFloatingPoint(hex: string): number {
  * @param num
  */
 export function negative2unsignedBit(num: number): number {
-  return 2 ** 32 - Number(num);
+  return 2 ** 32 - Math.abs(Number(num));
 }
 
 /**
@@ -54,5 +54,5 @@ export function negative2unsignedBit(num: number): number {
  * @param num
  */
 export function unsignedBit2negative(num: number): number {
-  return -(2 ** 32 - Number(num));
+  return  Number(num) - 2 ** 32;
 }
