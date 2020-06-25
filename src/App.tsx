@@ -30,7 +30,7 @@ function App() {
           hander={(iv: string) => algorithm.code2char(iv, 16)}
         ></IOInput>
       </BlockView>
-      
+
       <BlockView title="16进制转单浮点">
         <IOInput
           btnText="16进制 to 单浮点"
@@ -51,7 +51,36 @@ function App() {
           hander={(iv: string) => algorithm.unsignedBit2negative(Number(iv))}
         ></IOInput>
       </BlockView>
-      
+      <BlockView title="write movbe">
+        <IOInput
+          btnText="10进制 => movbe => 16进制"
+          inputValue="10"
+          hander={(iv: string) => algorithm.movbe(Number(iv))}
+        ></IOInput>
+        <IOInput
+          btnText="10进制 => movbe => 10进制"
+          inputValue="10"
+          hander={(iv: string) =>
+            parseInt(algorithm.movbe(Number(iv)), 16).toString()
+          }
+        ></IOInput>
+      </BlockView>
+      <BlockView title="read movbe">
+        <IOInput
+          btnText="16进制 => movbe => 10进制"
+          inputValue="0A000000"
+          hander={(iv: string) =>
+            parseInt(algorithm.movbe(parseInt(iv, 16)), 16).toString()
+          }
+        ></IOInput>
+        <IOInput
+          btnText="10进制 => movbe => 10进制"
+          inputValue="167772160"
+          hander={(iv: string) =>
+            parseInt(algorithm.movbe(Number(iv)), 16).toString()
+          }
+        ></IOInput>
+      </BlockView>
     </>
   );
 }

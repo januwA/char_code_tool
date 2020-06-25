@@ -54,5 +54,21 @@ export function negative2unsignedBit(num: number): number {
  * @param num
  */
 export function unsignedBit2negative(num: number): number {
-  return  Number(num) - 2 ** 32;
+  return Number(num) - 2 ** 32;
+}
+
+/**
+ * movbe eax,#10
+ * eax == 0x0A000000
+ */
+export function movbe(iv: number): string {
+  let hex = iv.toString(16);
+  const len = 8 - hex.length;
+  for (let i = 0; i < len; i++) {
+    hex = "0" + hex;
+  }
+  hex = hex.toUpperCase()
+  const hexArr = hex.match(/([0-9a-z]){2}/ig);
+  if(!hexArr) return '0';
+  return hexArr.reverse().join('');
 }
